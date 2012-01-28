@@ -25,12 +25,15 @@ namespace Coderwall
         public MainViewModel()
         {
             this.Badges = new ObservableCollection<BadgeViewModel>();
+            this.Accomplishments = new ObservableCollection<string>();
         }
 
         /// <summary>
         /// A collection of Badges objects.
         /// </summary>
         public ObservableCollection<BadgeViewModel> Badges { get; private set; }
+
+        public ObservableCollection<string> Accomplishments { get; private set; }
 
         public User CurrentUser { get; private set; }
 
@@ -49,7 +52,7 @@ namespace Coderwall
             client.BaseUrl = "http://api.coderwall.com";
 
             var request = new RestRequest();
-            request.Resource = "oinutter.json?full=true";
+            request.Resource = "mdeiters.json?full=true";
             client.ExecuteAsync<User>(request, (response) =>
             {
                 if (response.ResponseStatus == ResponseStatus.Error)
@@ -60,11 +63,15 @@ namespace Coderwall
                 {
                     CurrentUser = response.Data;
                     PropertyChanged(this, new PropertyChangedEventArgs("CurrentUser"));
-                    foreach (BadgeObject badge in response.Data.Badges)
-                    {
+                    foreach (BadgeObject badge in CurrentUser.Badges)
                         Badges.Add(new BadgeViewModel() { BadgeName = badge.Name, BadgeDescription = badge.Description, Badge = new System.Windows.Media.Imaging.BitmapImage(new Uri(badge.Badge,UriKind.Absolute)) });
-                    }
 
+                    //Accomplishments = new ObservableCollection<string>(CurrentUser.Accomplishments);
+                    foreach (string accomplishment in CurrentUser.Accomplishments)
+                    {
+                        Accomplishments.Add(accomplishment);
+                        Debug.WriteLine(accomplishment);
+                    }
                     this.IsDataLoaded = true;
                 }
             });

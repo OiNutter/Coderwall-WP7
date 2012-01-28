@@ -10,6 +10,8 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+
 
 namespace Coderwall.Models
 {

@@ -16,11 +16,24 @@
     shell:SystemTray.IsVisible="False" DataContext="{Binding}">
 
     <!--LayoutRoot is the root grid where all page content is placed-->
-    <Grid x:Name="LayoutRoot" Background="Transparent">
- 
+    <Grid x:Name="LayoutRoot" Background="White">
+        <Grid HorizontalAlignment="Left" Margin="20,10,20,10" VerticalAlignment="Top">
+            <Image Source="Images/LogoSml.png" Width="30" Height="30" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+            <TextBlock Text="{Binding CurrentUser.Username}" VerticalAlignment="Center" Margin="40,0,0,0" Foreground="#FFC83C32" Style="{StaticResource PhoneTextTitle3Style}"/>
+        </Grid>
+            
         <!--Pivot control-->
-        <controls:Pivot Title="{Binding CurrentUser.Username}" Background="White" Foreground="#FFCC0000">
-            <!--Pivot item one-->
+        <controls:Pivot Foreground="#FFC83C32" FontSize="18" Background="Transparent" Margin="0,30,0,0">
+            <controls:Pivot.HeaderTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding}" FontSize="55"/>
+                </DataTemplate>
+            </controls:Pivot.HeaderTemplate>
+            
+            <controls:PivotItem Header="Profile" FontSize="20">
+                
+            </controls:PivotItem>
+            
             <controls:PivotItem Header="Badges" Name="BadgesView">
                 <!--Double line list with text wrapping-->
                 <ListBox Margin="0,0,-12,0" ItemsSource="{Binding Badges}">
@@ -28,9 +41,9 @@
                         <DataTemplate>
                             <Grid>
                                 <Image Source="{Binding Badge}"  Width="150" Height="150" HorizontalAlignment="Left"/>
-                                <StackPanel Margin="160,0,0,17" Width="282" Height="150">
-                                    <TextBlock Foreground="#FFCC0000" Text="{Binding BadgeName}" TextAlignment="Left" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}" HorizontalAlignment="Stretch" VerticalAlignment="Top"/>
-                                    <TextBlock Foreground="#FF999999" Text="{Binding BadgeDescription}" TextWrapping="Wrap" Margin="15,0,12,0" Style="{StaticResource PhoneTextSubtleStyle}" FontSize="17" HorizontalAlignment="Stretch"/>
+                                <StackPanel Margin="160,10,0,17" Width="282" Height="150">
+                                    <TextBlock Foreground="#FFC83C32" Text="{Binding BadgeName}" TextAlignment="Left" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}" HorizontalAlignment="Stretch" VerticalAlignment="Top"/>
+                                    <TextBlock Foreground="#FFAB9C73" Text="{Binding BadgeDescription}" TextWrapping="Wrap" Margin="15,0,12,0" Style="{StaticResource PhoneTextSubtleStyle}" FontSize="17" HorizontalAlignment="Stretch"/>
                                 </StackPanel>
                             </Grid>
                         </DataTemplate>
@@ -40,8 +53,17 @@
  
             <!--Pivot item two-->
             <!--Use 'Orientation="Horizontal"' to enable a panel that lays out horizontally-->
-            <controls:PivotItem Header="Accomplishments">
-                <!--Double line list with image placeholder and text wrapping-->
+            <controls:PivotItem Header="Accomplishments" Name="AccomplishmentsView">
+                <ListBox Margin="0,0,-12,0" ItemsSource="{Binding Accomplishments}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Margin="0,0,0,20" HorizontalAlignment="Stretch" ShowGridLines="False">
+                                <Ellipse Width="20" Height="20" Fill="#FFC83C32" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,5,0,0"/>
+                                <TextBlock Foreground="#FFAB9C73" Text="{Binding}" Margin="40,0,0,0" TextAlignment="Left" TextWrapping="Wrap" Style="{StaticResource PhoneTextSubtleStyle}" HorizontalAlignment="Stretch" VerticalAlignment="Top"/>
+                            </Grid>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
             </controls:PivotItem>
             
             <controls:PivotItem Header="Stats">
