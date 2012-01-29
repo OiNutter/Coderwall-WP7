@@ -26,6 +26,7 @@ namespace Coderwall
         {
             this.Badges = new ObservableCollection<BadgeViewModel>();
             this.Accomplishments = new ObservableCollection<string>();
+            this.Avatar = new System.Windows.Media.Imaging.BitmapImage(new Uri("https://secure.gravatar.com/avatar/1863cc77d322b858d85b6ff665749e63?s=200", UriKind.Absolute));
         }
 
         /// <summary>
@@ -35,7 +36,15 @@ namespace Coderwall
 
         public ObservableCollection<string> Accomplishments { get; private set; }
 
+        public object Endorsements { get; private set; }
+
         public User CurrentUser { get; private set; }
+
+        public ImageSource Avatar { get; private set; }
+
+        public string Summary { get; private set; }
+
+        public string Specialities { get; private set; }
 
         public bool IsDataLoaded
         {
@@ -52,7 +61,7 @@ namespace Coderwall
             client.BaseUrl = "http://api.coderwall.com";
 
             var request = new RestRequest();
-            request.Resource = "mdeiters.json?full=true";
+            request.Resource = "oinutter.json?full=true";
             client.ExecuteAsync<User>(request, (response) =>
             {
                 if (response.ResponseStatus == ResponseStatus.Error)
@@ -66,12 +75,29 @@ namespace Coderwall
                     foreach (BadgeObject badge in CurrentUser.Badges)
                         Badges.Add(new BadgeViewModel() { BadgeName = badge.Name, BadgeDescription = badge.Description, Badge = new System.Windows.Media.Imaging.BitmapImage(new Uri(badge.Badge,UriKind.Absolute)) });
 
-                    //Accomplishments = new ObservableCollection<string>(CurrentUser.Accomplishments);
                     foreach (string accomplishment in CurrentUser.Accomplishments)
-                    {
                         Accomplishments.Add(accomplishment);
-                        Debug.WriteLine(accomplishment);
-                    }
+
+                    if (Accomplishments.Count == 0)
+                        Accomplishments.Add("You Have Not Entered Any Accomplishments");
+
+                    Summary = CurrentUser.Title;
+
+                    if (CurrentUser.Title != "" && CurrentUser.Company != "")
+                        Summary += " at ";
+                    
+                    Summary += CurrentUser.Company;
+
+                    if (Summary != "")
+                        Summary += "\n";
+
+                    Summary += CurrentUser.Location;
+                
+                    Specialities = string.Join(", ", CurrentUser.Specialities);
+
+                    PropertyChanged(this, new PropertyChangedEventArgs("Summary"));
+                    PropertyChanged(this, new PropertyChangedEventArgs("Specialities"));
+                   
                     this.IsDataLoaded = true;
                 }
             });
@@ -87,5 +113,8 @@ namespace Coderwall
                 handler(this, new PropertyChangedEventArgs(propertyName));
             }
         }
+
+        
+
     }
 }

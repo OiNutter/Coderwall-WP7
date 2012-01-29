@@ -25,7 +25,7 @@ namespace Coderwall.Models
         public int Endorsements { get; set; }
         public List<BadgeObject> Badges { get; set; }
         public List<string> Accomplishments { get; set; }
-        public List<Object> Stats { get; set; }
+        public List<Statistic> Stats { get; set; }
         public List<string> Specialities { get; set; }
     }
 }

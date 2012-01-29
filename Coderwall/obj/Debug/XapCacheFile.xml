@@ -1,8 +1,8 @@
-﻿<xapCache source="C:\Users\Will\Documents\Visual Studio 2010\Projects\Coderwall\Coderwall\Bin\Debug\Coderwall.xap" wasSigned="False" certificateThumbprint="" TimeStampUrl="" lastWriteTime="28/01/2012 13:11:11">
+﻿<xapCache source="C:\Users\Will\Documents\Visual Studio 2010\Projects\Coderwall\Coderwall\Bin\Debug\Coderwall.xap" wasSigned="False" certificateThumbprint="" TimeStampUrl="" lastWriteTime="29/01/2012 21:37:01">
   <file source="C:\Users\Will\Documents\Visual Studio 2010\Projects\Coderwall\Coderwall\Bin\Debug\WMAppManifest.xml" archivePath="WMAppManifest.xml" lastWriteTime="21/01/2012 15:44:40" />
   <file source="C:\Users\Will\Documents\Visual Studio 2010\Projects\Coderwall\Coderwall\Background.png" archivePath="Background.png" lastWriteTime="21/01/2012 15:44:36" />
   <file source="C:\Users\Will\Documents\Visual Studio 2010\Projects\Coderwall\Coderwall\ApplicationIcon.png" archivePath="ApplicationIcon.png" lastWriteTime="27/01/2012 23:46:53" />
-  <file source="C:\Users\Will\Documents\Visual Studio 2010\Projects\Coderwall\Coderwall\obj\Debug\Coderwall.dll" archivePath="Coderwall.dll" lastWriteTime="28/01/2012 13:11:11" />
+  <file source="C:\Users\Will\Documents\Visual Studio 2010\Projects\Coderwall\Coderwall\obj\Debug\Coderwall.dll" archivePath="Coderwall.dll" lastWriteTime="29/01/2012 21:37:00" />
   <file source="C:\Program Files (x86)\Microsoft SDKs\Windows Phone\v7.1\Libraries\Silverlight\Microsoft.Phone.Controls.dll" archivePath="Microsoft.Phone.Controls.dll" lastWriteTime="15/09/2011 16:36:26" />
   <file source="C:\Users\Will\Documents\Visual Studio 2010\Projects\Coderwall\packages\Newtonsoft.Json.4.0.5\lib\sl4-windowsphone71\Newtonsoft.Json.dll" archivePath="Newtonsoft.Json.dll" lastWriteTime="22/01/2012 13:58:33" />
   <file source="C:\Users\Will\Documents\Visual Studio 2010\Projects\Coderwall\packages\RestSharp.102.6\lib\sl4-wp71\RestSharp.WindowsPhone.dll" archivePath="RestSharp.WindowsPhone.dll" lastWriteTime="22/01/2012 13:58:34" />
