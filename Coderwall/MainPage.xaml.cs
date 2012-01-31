@@ -10,7 +10,7 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
-using Microsoft.Phone.Shell; 
+using Microsoft.Phone.Shell;
 
 using System.Diagnostics;
 
@@ -51,6 +51,7 @@ namespace Coderwall
             ApplicationBarIconButton settingsButton = new ApplicationBarIconButton();
             settingsButton.IconUri = new Uri("/Icons/appbar.feature.settings.rest.png", UriKind.Relative);
             settingsButton.Text = "Settings";
+            settingsButton.Click += new EventHandler(Settings_Click);
             ApplicationBar.Buttons.Add(settingsButton);
         }
 
@@ -65,20 +66,12 @@ namespace Coderwall
 
         private void SearchButton_Click(object sender, EventArgs e)
         {
-            ShowSearchBox();
+            NavigationService.Navigate(new Uri("/SearchPage.xaml", UriKind.Relative));
         }
 
-        private void ShowSearchBox()
+        private void Settings_Click(object sender, EventArgs e)
         {
-            Debug.WriteLine("Showing Search Box");
-            Grid SearchBox = new Grid();
-            SearchBox.Height = 100;
-            SolidColorBrush BgBrush = new SolidColorBrush();
-            BgBrush.Color = Color.FromArgb(255, 204, 0, 0);
-            SearchBox.Background = BgBrush;
-            SearchBox.HorizontalAlignment = HorizontalAlignment.Stretch;
-            SearchBox.VerticalAlignment = VerticalAlignment.Bottom;
-            LayoutRoot.Children.Add(SearchBox);
+            NavigationService.Navigate(new Uri("/SettingsPage.xaml",UriKind.Relative));
         }
 
     }

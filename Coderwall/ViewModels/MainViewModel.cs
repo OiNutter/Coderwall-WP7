@@ -18,15 +18,13 @@ using RestSharp;
 using Coderwall.Models;
 
 
-namespace Coderwall
+namespace Coderwall.ViewModels
 {
     public class MainViewModel : INotifyPropertyChanged
     {
         public MainViewModel()
         {
-            this.Badges = new ObservableCollection<BadgeViewModel>();
-            this.Accomplishments = new ObservableCollection<string>();
-            this.Avatar = new System.Windows.Media.Imaging.BitmapImage(new Uri("https://secure.gravatar.com/avatar/1863cc77d322b858d85b6ff665749e63?s=200", UriKind.Absolute));
+
         }
 
         /// <summary>
@@ -46,6 +44,8 @@ namespace Coderwall
 
         public string Specialities { get; private set; }
 
+        public string Username { get; set; }
+
         public bool IsDataLoaded
         {
             get;
@@ -58,10 +58,13 @@ namespace Coderwall
         public void LoadData()
         {
             var client = new RestClient();
-            client.BaseUrl = "http://api.coderwall.com";
+            client.BaseUrl = "http://coderwall.com";
+
+            Badges = new ObservableCollection<BadgeViewModel>();
+            Accomplishments = new ObservableCollection<string>();
 
             var request = new RestRequest();
-            request.Resource = "oinutter.json?full=true";
+            request.Resource = Username + ".json?full=true";
             client.ExecuteAsync<User>(request, (response) =>
             {
                 if (response.ResponseStatus == ResponseStatus.Error)
@@ -71,7 +74,6 @@ namespace Coderwall
                 else
                 {
                     CurrentUser = response.Data;
-                    PropertyChanged(this, new PropertyChangedEventArgs("CurrentUser"));
                     foreach (BadgeObject badge in CurrentUser.Badges)
                         Badges.Add(new BadgeViewModel() { BadgeName = badge.Name, BadgeDescription = badge.Description, Badge = new System.Windows.Media.Imaging.BitmapImage(new Uri(badge.Badge,UriKind.Absolute)) });
 
@@ -83,7 +85,7 @@ namespace Coderwall
 
                     Summary = CurrentUser.Title;
 
-                    if (CurrentUser.Title != "" && CurrentUser.Company != "")
+                    if (CurrentUser.Title != null && CurrentUser.Company != null)
                         Summary += " at ";
                     
                     Summary += CurrentUser.Company;
@@ -95,8 +97,14 @@ namespace Coderwall
                 
                     Specialities = string.Join(", ", CurrentUser.Specialities);
 
+                    Avatar = new System.Windows.Media.Imaging.BitmapImage(new Uri(CurrentUser.Thumbnail+"?s=200", UriKind.Absolute));
+
+                    PropertyChanged(this, new PropertyChangedEventArgs("CurrentUser"));
                     PropertyChanged(this, new PropertyChangedEventArgs("Summary"));
                     PropertyChanged(this, new PropertyChangedEventArgs("Specialities"));
+                    PropertyChanged(this, new PropertyChangedEventArgs("Avatar"));
+                    PropertyChanged(this, new PropertyChangedEventArgs("Badges"));
+                    PropertyChanged(this, new PropertyChangedEventArgs("Accomplishments"));
                    
                     this.IsDataLoaded = true;
                 }

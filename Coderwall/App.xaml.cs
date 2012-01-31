@@ -13,11 +13,16 @@ using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 
+using Coderwall.Models;
+using Coderwall.ViewModels;
+
 namespace Coderwall
 {
     public partial class App : Application
     {
         private static MainViewModel viewModel = null;
+
+        public String CurrentUser { get; set; }
 
         /// <summary>
         /// A static ViewModel used by the views to bind against.
@@ -73,6 +78,28 @@ namespace Coderwall
                 // Caution:- Use this under debug mode only. Application that disables user idle detection will continue to run
                 // and consume battery power when the user is not using the phone.
                 PhoneApplicationService.Current.UserIdleDetectionMode = IdleDetectionMode.Disabled;
+            }
+
+            RootFrame.Navigating += new NavigatingCancelEventHandler(RootFrame_Navigating);
+
+        }
+
+        private void RootFrame_Navigating(object sender, NavigatingCancelEventArgs e)
+        {
+            // Only care about MainPage
+            if (e.Uri.ToString().Contains("/MainPage.xaml") != true)
+                return;
+
+            AppSettings AppSettings = new AppSettings();
+
+            if (AppSettings.UsernameSetting == "")
+            {
+                RootFrame.Navigate(new Uri("/SettingsPage.xaml", UriKind.Relative));
+            }
+            else
+            {
+                ViewModel.Username = AppSettings.UsernameSetting;
+                RootFrame.Navigate(new Uri("/MainPage.xaml",UriKind.Relative));
             }
 
         }

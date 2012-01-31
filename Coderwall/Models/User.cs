@@ -22,6 +22,7 @@ namespace Coderwall.Models
         public string Location { get; set; }
         public string Title { get; set; }
         public string Company { get; set; }
+        public string Thumbnail { get; set; }
         public int Endorsements { get; set; }
         public List<BadgeObject> Badges { get; set; }
         public List<string> Accomplishments { get; set; }
