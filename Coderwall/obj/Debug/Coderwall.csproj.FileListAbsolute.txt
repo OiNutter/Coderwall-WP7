@@ -24,3 +24,29 @@ C:\Users\Will\Documents\Visual Studio 2010\Projects\Coderwall\Coderwall\obj\Debu
 C:\Users\Will\Documents\Visual Studio 2010\Projects\Coderwall\Coderwall\Bin\Debug\Icons\appbar.cancel.rest.png
 C:\Users\Will\Documents\Visual Studio 2010\Projects\Coderwall\Coderwall\Bin\Debug\Icons\appbar.check.rest.png
 C:\Users\Will\Documents\Visual Studio 2010\Projects\Coderwall\Coderwall\obj\Debug\SearchPage.g.i.cs
+D:\Workspace\Coderwall\Coderwall\Bin\Debug\ApplicationIcon.png
+D:\Workspace\Coderwall\Coderwall\Bin\Debug\Background.png
+D:\Workspace\Coderwall\Coderwall\Bin\Debug\Icons\appbar.cancel.rest.png
+D:\Workspace\Coderwall\Coderwall\Bin\Debug\Icons\appbar.check.rest.png
+D:\Workspace\Coderwall\Coderwall\Bin\Debug\Icons\appbar.feature.search.rest.png
+D:\Workspace\Coderwall\Coderwall\Bin\Debug\Icons\appbar.feature.settings.rest.png
+D:\Workspace\Coderwall\Coderwall\Bin\Debug\Images\LogoSml.png
+D:\Workspace\Coderwall\Coderwall\Bin\Debug\Coderwall.dll
+D:\Workspace\Coderwall\Coderwall\Bin\Debug\Coderwall.pdb
+D:\Workspace\Coderwall\Coderwall\Bin\Debug\AppManifest.xaml
+D:\Workspace\Coderwall\Coderwall\Bin\Debug\Coderwall.xap
+D:\Workspace\Coderwall\Coderwall\Bin\Debug\Microsoft.Phone.Controls.dll
+D:\Workspace\Coderwall\Coderwall\Bin\Debug\Newtonsoft.Json.dll
+D:\Workspace\Coderwall\Coderwall\Bin\Debug\RestSharp.WindowsPhone.dll
+D:\Workspace\Coderwall\Coderwall\Bin\Debug\Microsoft.Phone.Controls.xml
+D:\Workspace\Coderwall\Coderwall\Bin\Debug\Newtonsoft.Json.pdb
+D:\Workspace\Coderwall\Coderwall\Bin\Debug\Newtonsoft.Json.xml
+D:\Workspace\Coderwall\Coderwall\obj\Debug\ResolveAssemblyReference.cache
+D:\Workspace\Coderwall\Coderwall\obj\Debug\App.g.i.cs
+D:\Workspace\Coderwall\Coderwall\obj\Debug\MainPage.g.i.cs
+D:\Workspace\Coderwall\Coderwall\obj\Debug\SearchPage.g.i.cs
+D:\Workspace\Coderwall\Coderwall\obj\Debug\SettingsPage.g.i.cs
+D:\Workspace\Coderwall\Coderwall\obj\Debug\Coderwall.g.resources
+D:\Workspace\Coderwall\Coderwall\obj\Debug\Coderwall.dll
+D:\Workspace\Coderwall\Coderwall\obj\Debug\Coderwall.pdb
+D:\Workspace\Coderwall\Coderwall\obj\Debug\XapCacheFile.xml

@@ -12,6 +12,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
+using System.Diagnostics;
 
 using Coderwall.Models;
 using Coderwall.ViewModels;
@@ -91,15 +92,23 @@ namespace Coderwall
                 return;
 
             AppSettings AppSettings = new AppSettings();
-
+            Debug.WriteLine("Username:" + AppSettings.UsernameSetting);
             if (AppSettings.UsernameSetting == "")
             {
-                RootFrame.Navigate(new Uri("/SettingsPage.xaml", UriKind.Relative));
+                Debug.WriteLine("Redirecting...");
+                e.Cancel = true;
+                RootFrame.Dispatcher.BeginInvoke(delegate
+                {
+                    RootFrame.Navigate(new Uri("/SettingsPage.xaml", UriKind.Relative));
+                });
             }
             else
             {
                 ViewModel.Username = AppSettings.UsernameSetting;
-                RootFrame.Navigate(new Uri("/MainPage.xaml",UriKind.Relative));
+                RootFrame.Dispatcher.BeginInvoke(delegate
+                {
+                    RootFrame.Navigate(new Uri("/MainPage.xaml", UriKind.Relative));
+                });
             }
 
         }

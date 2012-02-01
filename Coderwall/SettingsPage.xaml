@@ -25,7 +25,7 @@
         <StackPanel x:Name="TitlePanel" Grid.Row="0">
             <Grid HorizontalAlignment="Left" Margin="20,10,20,10" VerticalAlignment="Top">
                 <Image Source="../Images/LogoSml.png" Width="30" Height="30" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                <TextBlock Text="Coderwall" VerticalAlignment="Center" Margin="40,0,0,0" FontSize="55" Foreground="#FFC83C32" Style="{StaticResource PhoneTextTitle3Style}"/>
+                <TextBlock Text="Coderwall" VerticalAlignment="Center" Margin="40,0,0,0" Foreground="#FFC83C32" Style="{StaticResource PhoneTextTitle3Style}"/>
             </Grid>
             <TextBlock x:Name="PageTitle" Foreground="#FFC83C32" Text="Settings" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
         </StackPanel>
