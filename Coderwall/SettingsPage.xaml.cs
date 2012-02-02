@@ -57,7 +57,7 @@ namespace Coderwall
             SettingsModel.AppSettings.UsernameSetting = TextBoxUserName.Text;
             App.ViewModel.Username = TextBoxUserName.Text;
             App.ViewModel.LoadData();
-            NavigationService.GoBack();
+            NavigationService.Navigate(new Uri("/MainPage.xaml", UriKind.Relative));
         }
 
         private void CancelButton_Click(object sender, EventArgs e)

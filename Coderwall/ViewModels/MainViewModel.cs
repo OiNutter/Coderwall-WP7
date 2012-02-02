@@ -12,11 +12,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Collections.ObjectModel;
-
+using System.IO.IsolatedStorage;
 using RestSharp;
 
 using Coderwall.Models;
-
 
 namespace Coderwall.ViewModels
 {
@@ -74,6 +73,7 @@ namespace Coderwall.ViewModels
                 else
                 {
                     CurrentUser = response.Data;
+
                     foreach (BadgeObject badge in CurrentUser.Badges)
                         Badges.Add(new BadgeViewModel() { BadgeName = badge.Name, BadgeDescription = badge.Description, Badge = new System.Windows.Media.Imaging.BitmapImage(new Uri(badge.Badge,UriKind.Absolute)) });
 

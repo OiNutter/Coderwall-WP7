@@ -48,7 +48,9 @@ namespace Coderwall
 
         private void SearchButton_Click(object sender, EventArgs e)
         {
-
+            App.ViewModel.Username = SearchBox.Text;
+            App.ViewModel.LoadData();
+            NavigationService.GoBack();
         }
 
         private void CancelButton_Click(object sender, EventArgs e)
