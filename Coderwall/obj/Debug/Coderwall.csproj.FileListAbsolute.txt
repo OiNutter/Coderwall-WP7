@@ -50,3 +50,4 @@ D:\Workspace\Coderwall\Coderwall\obj\Debug\Coderwall.g.resources
 D:\Workspace\Coderwall\Coderwall\obj\Debug\Coderwall.dll
 D:\Workspace\Coderwall\Coderwall\obj\Debug\Coderwall.pdb
 D:\Workspace\Coderwall\Coderwall\obj\Debug\XapCacheFile.xml
+C:\Users\Will\Documents\Visual Studio 2010\Projects\Coderwall\Coderwall\Bin\Debug\Icons\appbar.sync.rest.png

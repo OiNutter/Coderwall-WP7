@@ -21,8 +21,9 @@ namespace Coderwall
 {
     public partial class App : Application
     {
-        private static MainViewModel viewModel = null;
 
+        private static MainViewModel viewModel = null;
+        
         public String CurrentUser { get; set; }
 
         /// <summary>

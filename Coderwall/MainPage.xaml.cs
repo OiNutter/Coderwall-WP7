@@ -51,8 +51,14 @@ namespace Coderwall
             ApplicationBarIconButton settingsButton = new ApplicationBarIconButton();
             settingsButton.IconUri = new Uri("/Icons/appbar.feature.settings.rest.png", UriKind.Relative);
             settingsButton.Text = "Settings";
-            settingsButton.Click += new EventHandler(Settings_Click);
+            settingsButton.Click += new EventHandler(SettingsButton_Click);
             ApplicationBar.Buttons.Add(settingsButton);
+
+            ApplicationBarIconButton refreshButton = new ApplicationBarIconButton();
+            refreshButton.IconUri = new Uri("/Icons/appbar.sync.rest.png", UriKind.Relative);
+            refreshButton.Text = "Refresh";
+            refreshButton.Click += new EventHandler(RefreshButton_Click);
+            ApplicationBar.Buttons.Add(refreshButton);
         }
 
         // Load data for the ViewModel Items
@@ -69,9 +75,13 @@ namespace Coderwall
             NavigationService.Navigate(new Uri("/SearchPage.xaml", UriKind.Relative));
         }
 
-        private void Settings_Click(object sender, EventArgs e)
+        private void SettingsButton_Click(object sender, EventArgs e)
         {
             NavigationService.Navigate(new Uri("/SettingsPage.xaml",UriKind.Relative));
+        }
+
+        private void RefreshButton_Click(object sender, EventArgs e)
+        {
         }
 
     }
