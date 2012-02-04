@@ -75,6 +75,7 @@ namespace Coderwall.ViewModels
                     Name = (string)CachedUser["CachedName"],
                     Title = (string)CachedUser["CachedTitle"],
                     Company = (string)CachedUser["CachedCompany"],
+                    Location = (string)CachedUser["CachedLocation"],
                     Specialities = (List<string>)CachedUser["CachedSpecialities"],
                     Badges = (List<BadgeObject>)CachedUser["CachedBadges"],
                     Accomplishments = (List<string>)CachedUser["CachedAccomplishments"],
@@ -83,7 +84,7 @@ namespace Coderwall.ViewModels
                     Thumbnail = (string)CachedUser["CachedThumbnail"]
                 };
 
-                ProcessUser(CurrentUser);
+                ProcessUser(CurrentUser,true);
             }
             else
             {
@@ -106,7 +107,7 @@ namespace Coderwall.ViewModels
                         CurrentUser = response.Data;
                         if (ShouldCache)
                             CurrentCached.StoreUser(CurrentUser);
-                        ProcessUser(CurrentUser);
+                        ProcessUser(CurrentUser,false);
 
                         this.IsDataLoaded = true;
                     }
@@ -116,7 +117,9 @@ namespace Coderwall.ViewModels
             }
         }
         
-        private void ProcessUser(User ThisUser){
+        private void ProcessUser(User ThisUser,bool Cached){
+
+            ImageCache ImageCache = new ImageCache();
 
             foreach (BadgeObject badge in ThisUser.Badges)
                 Badges.Add(
@@ -148,8 +151,25 @@ namespace Coderwall.ViewModels
                 
                 Specialities = string.Join(", ", CurrentUser.Specialities);
 
-                Avatar = new System.Windows.Media.Imaging.BitmapImage(new Uri(CurrentUser.Thumbnail+"?s=200", UriKind.Absolute));
-
+                Uri AvatarUri = new Uri(CurrentUser.Thumbnail + "?s=200", UriKind.Absolute);
+                Debug.WriteLine(Cached);
+                Debug.WriteLine(ImageCache.ImageExists(AvatarUri));
+                if (Cached && ImageCache.ImageExists(AvatarUri))
+                {
+                    Debug.WriteLine("Loading From Cache");
+                    Avatar = ImageCache.LoadImage(AvatarUri);
+                }
+                else
+                {
+                    Debug.WriteLine("Loading From Web");
+                    BitmapImage AvatarBitmap = new BitmapImage(AvatarUri);
+                    Avatar = AvatarBitmap;
+                    if (ShouldCache)
+                    {
+                        AvatarBitmap.ImageOpened += new EventHandler<RoutedEventArgs>(ImageCache.StoreImage);
+                    }
+                }
+                
                 PropertyChanged(this, new PropertyChangedEventArgs("CurrentUser"));
                 PropertyChanged(this, new PropertyChangedEventArgs("Summary"));
                 PropertyChanged(this, new PropertyChangedEventArgs("Specialities"));
