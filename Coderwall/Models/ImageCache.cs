@@ -41,8 +41,6 @@ namespace Coderwall.Models
                 FileStream.Read(Bytes, 0, Bytes.Length);
             }
 
-            Debug.WriteLine(Bytes);
-
             return GetImage(Bytes);
         }
 
@@ -62,33 +60,30 @@ namespace Coderwall.Models
             using (FileStream)
                 FileStream.Write(Bytes, 0, Bytes.Length);
 
-            Debug.WriteLine(Cache.FileExists(filename));
         }
 
         private byte[] GetByteArray(WriteableBitmap Bitmap)
         {
-            long matrixSize = Bitmap.PixelWidth * Bitmap.PixelHeight;
+            long MatrixSize = Bitmap.PixelWidth * Bitmap.PixelHeight;
 	         
-	        long byteSize = matrixSize*4 + 4;
+            byte[] Bytes = new byte[MatrixSize * 4 + 4];
 	 
-	        byte[] retVal = new byte[byteSize];
-	 
-	        long bufferPos = 0;
+	        long BufferPos = 0;
 
-            retVal[bufferPos++] = (byte)((Bitmap.PixelWidth / 256) & 0xff);
-            retVal[bufferPos++] = (byte)((Bitmap.PixelWidth % 256) & 0xff);
-            retVal[bufferPos++] = (byte)((Bitmap.PixelHeight / 256) & 0xff);
-            retVal[bufferPos++] = (byte)((Bitmap.PixelHeight % 256) & 0xff);
+            Bytes[BufferPos++] = (byte)((Bitmap.PixelWidth / 256) & 0xff);
+            Bytes[BufferPos++] = (byte)((Bitmap.PixelWidth % 256) & 0xff);
+            Bytes[BufferPos++] = (byte)((Bitmap.PixelHeight / 256) & 0xff);
+            Bytes[BufferPos++] = (byte)((Bitmap.PixelHeight % 256) & 0xff);
 	 
-	        for (int matrixPos = 0; matrixPos < matrixSize; matrixPos++)
+	        for (int MatrixPos = 0; MatrixPos < MatrixSize; MatrixPos++)
 	        {
-                retVal[bufferPos++] = (byte)((Bitmap.Pixels[matrixPos] >> 24) & 0xff);
-                retVal[bufferPos++] = (byte)((Bitmap.Pixels[matrixPos] >> 16) & 0xff);
-                retVal[bufferPos++] = (byte)((Bitmap.Pixels[matrixPos] >> 8) & 0xff);
-                retVal[bufferPos++] = (byte)((Bitmap.Pixels[matrixPos]) & 0xff);   
+                Bytes[BufferPos++] = (byte)((Bitmap.Pixels[MatrixPos] >> 24) & 0xff);
+                Bytes[BufferPos++] = (byte)((Bitmap.Pixels[MatrixPos] >> 16) & 0xff);
+                Bytes[BufferPos++] = (byte)((Bitmap.Pixels[MatrixPos] >> 8) & 0xff);
+                Bytes[BufferPos++] = (byte)((Bitmap.Pixels[MatrixPos]) & 0xff);   
 	        }
 	 
-	        return retVal;
+	        return Bytes;
 
         }
 

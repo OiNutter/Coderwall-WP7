@@ -1,8 +1,8 @@
-﻿<xapCache source="D:\Workspace\Coderwall\Coderwall\Bin\Debug\Coderwall.xap" wasSigned="False" certificateThumbprint="" TimeStampUrl="" lastWriteTime="04/02/2012 13:00:49">
+﻿<xapCache source="D:\Workspace\Coderwall\Coderwall\Bin\Debug\Coderwall.xap" wasSigned="False" certificateThumbprint="" TimeStampUrl="" lastWriteTime="04/02/2012 14:29:09">
   <file source="D:\Workspace\Coderwall\Coderwall\Bin\Debug\WMAppManifest.xml" archivePath="WMAppManifest.xml" lastWriteTime="04/02/2012 11:56:18" />
   <file source="D:\Workspace\Coderwall\Coderwall\Background.png" archivePath="Background.png" lastWriteTime="04/02/2012 11:56:18" />
   <file source="D:\Workspace\Coderwall\Coderwall\ApplicationIcon.png" archivePath="ApplicationIcon.png" lastWriteTime="04/02/2012 11:56:18" />
-  <file source="D:\Workspace\Coderwall\Coderwall\obj\Debug\Coderwall.dll" archivePath="Coderwall.dll" lastWriteTime="04/02/2012 13:00:49" />
+  <file source="D:\Workspace\Coderwall\Coderwall\obj\Debug\Coderwall.dll" archivePath="Coderwall.dll" lastWriteTime="04/02/2012 14:29:08" />
   <file source="C:\Program Files (x86)\Microsoft SDKs\Windows Phone\v7.1\Libraries\Silverlight\Microsoft.Phone.Controls.dll" archivePath="Microsoft.Phone.Controls.dll" lastWriteTime="15/09/2011 16:36:26" />
   <file source="D:\Workspace\Coderwall\packages\Newtonsoft.Json.4.0.5\lib\sl4-windowsphone71\Newtonsoft.Json.dll" archivePath="Newtonsoft.Json.dll" lastWriteTime="04/02/2012 11:56:18" />
   <file source="D:\Workspace\Coderwall\packages\RestSharp.102.6\lib\sl4-wp71\RestSharp.WindowsPhone.dll" archivePath="RestSharp.WindowsPhone.dll" lastWriteTime="04/02/2012 11:56:18" />
