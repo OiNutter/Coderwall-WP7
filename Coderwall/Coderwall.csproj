@@ -113,6 +113,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Icons\appbar.back.rest.png" />
+    <Content Include="Icons\appbar.profile.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Icons\appbar.cancel.rest.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

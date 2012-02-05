@@ -14,6 +14,8 @@ using Microsoft.Phone.Shell;
 
 using System.Diagnostics;
 
+using Coderwall.Models;
+
 namespace Coderwall
 {
     public partial class MainPage : PhoneApplicationPage
@@ -23,8 +25,7 @@ namespace Coderwall
         {
             InitializeComponent();
 
-            //Create Application Bar
-            CreateApplicationBar();
+
 
             // Set the data context of the listbox control to the sample data
             DataContext = App.ViewModel;
@@ -42,6 +43,16 @@ namespace Coderwall
             ApplicationBar.IsMenuEnabled = true;
 
             // Add Buttons
+            AppSettings AppSettings = new AppSettings();
+            if (App.ViewModel.Username != AppSettings.UsernameSetting)
+            {
+                ApplicationBarIconButton MyWallButton = new ApplicationBarIconButton();
+                MyWallButton.IconUri = new Uri("/Icons/appbar.profile.png", UriKind.Relative);
+                MyWallButton.Text = "My Wall";
+                MyWallButton.Click += new EventHandler(MyWallButton_Click);
+                ApplicationBar.Buttons.Add(MyWallButton);
+            }
+
             ApplicationBarIconButton searchButton = new ApplicationBarIconButton();
             searchButton.IconUri = new Uri("/Icons/appbar.feature.search.rest.png", UriKind.Relative);
             searchButton.Text = "Search";
@@ -66,8 +77,11 @@ namespace Coderwall
         {
             if (!App.ViewModel.IsDataLoaded)
             {
+                //Create Application Bar
+                CreateApplicationBar();
                 App.ViewModel.LoadData();
             }
+
         }
 
         private void SearchButton_Click(object sender, EventArgs e)
@@ -82,6 +96,103 @@ namespace Coderwall
 
         private void RefreshButton_Click(object sender, EventArgs e)
         {
+            AppSettings AppSettings = new AppSettings();
+            if (App.ViewModel.Username == AppSettings.UsernameSetting)
+                App.ViewModel.ShouldCache = true;
+            else
+                App.ViewModel.ShouldCache = false;
+
+            App.ViewModel.GoBack = false;
+            App.ViewModel.IgnoreCache = true;
+            App.ViewModel.LoadData();
+        }
+
+        private void MyWallButton_Click(object sender, EventArgs e)
+        {
+            AppSettings AppSettings = new AppSettings();
+            App.ViewModel.Username = AppSettings.UsernameSetting;
+            App.ViewModel.IgnoreCache = false;
+            App.ViewModel.ShouldCache = true;
+            //Create Application Bar
+            CreateApplicationBar();
+            App.ViewModel.LoadData();
+        }
+
+        private void MainPage_OrientationChanged(object sender, OrientationChangedEventArgs e)
+        {
+
+            double BoxWidth;
+            Debug.WriteLine(e.Orientation);
+            if ((e.Orientation & PageOrientation.Portrait) == (PageOrientation.Portrait))
+            {
+                // Set view width to full width of screen
+                MainPivot.Width = LayoutRoot.ActualWidth;
+                MainPivot.HorizontalAlignment = HorizontalAlignment.Stretch;
+                Header.Margin = new Thickness(20, 10, 20, 10);
+                
+                //Move Profile Stats
+                Grid.SetRow(ProfileDetails, 1);
+                Grid.SetColumn(ProfileDetails, 0);
+                FullName.TextAlignment = TextAlignment.Center;
+                About.TextAlignment = TextAlignment.Center;
+
+                //Move Stat Boxes
+                Grid.SetRow(Stat3, 1);
+                Grid.SetColumn(Stat3, 0);
+                Grid.SetRow(Stat4, 1);
+                Grid.SetColumn(Stat4, 1);
+
+                //Set Dimensions on Stat Boxes
+                BoxWidth = (MainPivot.Width) / 2;
+                StatsGrid.ColumnDefinitions[0].Width = new GridLength(0.5,GridUnitType.Star);
+                StatsGrid.ColumnDefinitions[1].Width = new GridLength(0.5,GridUnitType.Star);
+                StatsGrid.ColumnDefinitions[2].Width = new GridLength(0);
+                StatsGrid.ColumnDefinitions[3].Width = new GridLength(0);
+
+                StatsGrid.Height = 440;
+                StatsGrid.RowDefinitions[1].Height = new GridLength(0.5,GridUnitType.Star);
+
+            }
+
+            // If not in the portrait mode, move buttonList content to a visible row and column.
+
+            else
+            {
+                // Adjust View Width To Compensate for Application Bar showing
+                MainPivot.Width = LayoutRoot.ActualWidth - ApplicationBar.DefaultSize;
+                if ((e.Orientation & PageOrientation.LandscapeLeft) == PageOrientation.LandscapeLeft)
+                {
+                    MainPivot.HorizontalAlignment = HorizontalAlignment.Left;
+                    Header.Margin = new Thickness(20,10,20,10);
+                }
+                else
+                {
+                    MainPivot.HorizontalAlignment = HorizontalAlignment.Right;
+                    Header.Margin = new Thickness(ApplicationBar.DefaultSize, 10, 20, 10);
+                }
+
+                // Move Profile Stats
+                Grid.SetRow(ProfileDetails, 0);
+                Grid.SetColumn(ProfileDetails, 1);
+                FullName.TextAlignment = TextAlignment.Left;
+                About.TextAlignment = TextAlignment.Left;
+
+                // Move Stat Boxes
+                Grid.SetRow(Stat3, 0);
+                Grid.SetColumn(Stat3, 2);
+                Grid.SetRow(Stat4, 0);
+                Grid.SetColumn(Stat4, 3);
+
+                //Set Dimensions on Stat Boxes
+                StatsGrid.ColumnDefinitions[0].Width = new GridLength(0.25,GridUnitType.Star);
+                StatsGrid.ColumnDefinitions[1].Width = new GridLength(0.25, GridUnitType.Star);
+                StatsGrid.ColumnDefinitions[2].Width = new GridLength(0.25,GridUnitType.Star);
+                StatsGrid.ColumnDefinitions[3].Width = new GridLength(0.25,GridUnitType.Star);
+
+                StatsGrid.Height = 220;
+                StatsGrid.RowDefinitions[1].Height = new GridLength(0);
+                
+            }
         }
 
     }

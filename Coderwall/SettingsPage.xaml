@@ -32,8 +32,17 @@
 
         <!--ContentPanel - place additional content here-->
         <StackPanel x:Name="ContentPanel" Grid.Row="1" Margin="12,20,12,0">
-            <TextBlock Foreground="#FFC83C32" HorizontalAlignment="Stretch" Margin="20,0,20,0" VerticalAlignment="Top" Text="Please enter your GitHub username"/>
-            <TextBox Foreground="White" Background="#FFAB9C73" Name="TextBoxUserName" GotFocus="TextBoxUserName_GotFocus" Text="{Binding AppSettings.UsernameSetting}"/>
+            <TextBlock Foreground="#FFAB9C73" HorizontalAlignment="Stretch" VerticalAlignment="Top" Text="Please enter your GitHub username" Margin="0,0,0,10" />
+            <Grid Background="#FFC83C32" HorizontalAlignment="Stretch">
+                <TextBox Name="TextBoxUserName" BorderThickness="0" GotFocus="TextBoxUserName_GotFocus" Background="White" Foreground="Black" Text="{Binding AppSettings.UsernameSetting}" Margin="5"/>
+            </Grid>
+            <RichTextBox IsReadOnly="True" TextAlignment="Center" Foreground="#FFAB9C73" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="0,10,0,0">
+                <Paragraph>You will need to have signed up on Coderwall with your GitHub user account first. If you haven't already done that, go to</Paragraph>
+                <Paragraph>
+                    <Hyperlink Foreground="#FFC83C32" NavigateUri="http://coderwall.com" TargetName="_blank">http://coderwall.com</Hyperlink>
+                </Paragraph>
+                <Paragraph>and sign up now</Paragraph>
+            </RichTextBox>
         </StackPanel>
     </Grid>
     

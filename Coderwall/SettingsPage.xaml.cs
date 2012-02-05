@@ -56,6 +56,9 @@ namespace Coderwall
         {
             SettingsModel.AppSettings.UsernameSetting = TextBoxUserName.Text;
             App.ViewModel.Username = TextBoxUserName.Text;
+            App.ViewModel.ShouldCache = true;
+            App.ViewModel.IgnoreCache = true;
+            App.ViewModel.GoBack = true;
             App.ViewModel.LoadData();
             NavigationService.Navigate(new Uri("/MainPage.xaml", UriKind.Relative));
         }
@@ -68,11 +71,11 @@ namespace Coderwall
         private void TextBoxUserName_GotFocus(object sender, EventArgs e)
         {
             SolidColorBrush ForegroundBrush = new SolidColorBrush();
-            ForegroundBrush.Color = Colors.White;
+            ForegroundBrush.Color = Colors.Black;
             TextBoxUserName.Foreground = ForegroundBrush;
 
             SolidColorBrush BackgroundBrush = new SolidColorBrush();
-            BackgroundBrush.Color = Color.FromArgb(255,171,156,115);
+            BackgroundBrush.Color = Colors.White;
             TextBoxUserName.Background = BackgroundBrush;
         }
     }

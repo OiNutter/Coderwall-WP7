@@ -26,6 +26,7 @@ namespace Coderwall.ViewModels
             IgnoreCache = false;
             ShouldCache = true;
             Username = "";
+            GoBack = false;
         }
 
         /// <summary>
@@ -49,12 +50,19 @@ namespace Coderwall.ViewModels
 
         public bool IgnoreCache { get; set; }
 
-        public bool ShouldCache { get; set; } 
+        public bool ShouldCache { get; set; }
+
+        public bool GoBack { get; set; }
 
         public bool IsDataLoaded
         {
             get;
             private set;
+        }
+
+        public void ForceReload()
+        {
+            IsDataLoaded = false;
         }
 
         /// <summary>
@@ -67,7 +75,7 @@ namespace Coderwall.ViewModels
             Badges = new ObservableCollection<BadgeViewModel>();
             Accomplishments = new ObservableCollection<string>();
 
-            if (IgnoreCache || (CachedUser.Contains("ValidUntil") && (DateTime)CachedUser["ValidUntil"] > DateTime.Now))
+            if (!IgnoreCache && (CachedUser.Contains("ValidUntil") && (DateTime)CachedUser["ValidUntil"] > DateTime.Now))
             {
                 Debug.WriteLine("Using Cache");
                 CurrentUser = new User()
@@ -90,27 +98,47 @@ namespace Coderwall.ViewModels
             else
             {
 
-                var client = new RestClient();
+                RestClient client = new RestClient();
                 client.BaseUrl = "http://coderwall.com";
 
+                Debug.WriteLine("Using Web");
 
-
-                var request = new RestRequest();
-                request.Resource = Username + ".json?full=true";
+                RestRequest request = new RestRequest();
+                Random Random = new Random((int)DateTime.Now.Ticks);
+                request.Resource = Username + ".json?full=true&rand=" + Random.Next(1,100000000);
                 client.ExecuteAsync<User>(request, (response) =>
                 {
+                    Debug.WriteLine("StatusCode:" + response.StatusCode);
+                    Debug.WriteLine("StatusDescription:" + response.StatusDescription);
+                    Debug.WriteLine("Response:" + response.ResponseStatus);
                     if (response.ResponseStatus == ResponseStatus.Error)
                     {
-                        Debug.WriteLine(response.ErrorMessage);
+                        if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
+                            MessageBox.Show("Sorry, there seems to be a problem finding the requested user. Please check you typed the username correctly and that the user exists");
+                        else
+                            MessageBox.Show("Sorry, we seem to be having problems loading the requested user. Please try again in a few minutes");
+
+                        if (GoBack)
+                        {
+                            Microsoft.Phone.Controls.PhoneApplicationFrame Root = (Microsoft.Phone.Controls.PhoneApplicationFrame)Application.Current.RootVisual;
+                            Root.GoBack();
+                        }
+                           
+
+                    }
+                    else if (response.ResponseStatus == ResponseStatus.TimedOut)
+                    {
+                        MessageBox.Show("Sorry, we couldn't connect to the server. Please check your are connected to the internet");
                     }
                     else
                     {
                         CurrentUser = response.Data;
                         ProcessUser(CurrentUser, false);
                         if (ShouldCache)
+                        {
                             CurrentCached.StoreUser(CurrentUser);
-                        
-
+                            IgnoreCache = false;
+                        }
                         this.IsDataLoaded = true;
                     }
 
@@ -173,12 +201,10 @@ namespace Coderwall.ViewModels
                 Uri AvatarUri = new Uri(CurrentUser.Thumbnail + "?s=200", UriKind.Absolute);
                 if (Cached && ImageCache.ImageExists(AvatarUri))
                 {
-                    Debug.WriteLine("Loading From Cache");
                     Avatar = ImageCache.LoadImage(AvatarUri);
                 }
                 else
                 {
-                    Debug.WriteLine("Loading Avatar From Web");
                     BitmapImage AvatarBitmap = new BitmapImage(AvatarUri);
                     Avatar = AvatarBitmap;
                     if (ShouldCache)

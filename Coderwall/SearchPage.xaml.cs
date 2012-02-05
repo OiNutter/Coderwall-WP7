@@ -48,9 +48,12 @@ namespace Coderwall
 
         private void SearchButton_Click(object sender, EventArgs e)
         {
+            App.ViewModel.IgnoreCache = true;
+            App.ViewModel.ShouldCache = false;
             App.ViewModel.Username = SearchBox.Text;
-            App.ViewModel.LoadData();
-            NavigationService.GoBack();
+            App.ViewModel.GoBack = true;
+            App.ViewModel.ForceReload();
+            NavigationService.Navigate(new Uri("/MainPage.xaml", UriKind.Relative));
         }
 
         private void CancelButton_Click(object sender, EventArgs e)
@@ -61,11 +64,11 @@ namespace Coderwall
         private void SearchBox_GotFocus(object sender, EventArgs e)
         {
             SolidColorBrush ForegroundBrush = new SolidColorBrush();
-            ForegroundBrush.Color = Colors.White;
+            ForegroundBrush.Color = Colors.Black;
             SearchBox.Foreground = ForegroundBrush;
 
             SolidColorBrush BackgroundBrush = new SolidColorBrush();
-            BackgroundBrush.Color = Color.FromArgb(255, 171, 156, 115);
+            BackgroundBrush.Color = Colors.White;
             SearchBox.Background = BackgroundBrush;
         }
     }

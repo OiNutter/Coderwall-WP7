@@ -32,8 +32,10 @@
 
         <!--ContentPanel - place additional content here-->
         <StackPanel x:Name="ContentPanel" Grid.Row="1" Margin="12,20,12,0">
-            <TextBlock Foreground="#FFC83C32" HorizontalAlignment="Stretch" Margin="20,0,20,0" VerticalAlignment="Top" Text="To view another user's profile enter their username here" TextWrapping="Wrap"/>
-            <TextBox Foreground="White" Background="#FFAB9C73" Name="SearchBox" GotFocus="SearchBox_GotFocus" Text=""/>
+            <TextBlock Foreground="#FFAB9C73" HorizontalAlignment="Stretch" VerticalAlignment="Top" Text="To view another user's profile enter their username here" Margin="0,0,0,10" />
+            <Grid Background="#FFC83C32" HorizontalAlignment="Stretch">
+                <TextBox Name="SearchBox" BorderThickness="0" GotFocus="SearchBox_GotFocus" Background="White" Foreground="Black" Text="" Margin="5"/>
+            </Grid>
         </StackPanel>
     </Grid>
 

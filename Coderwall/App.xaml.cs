@@ -93,7 +93,6 @@ namespace Coderwall
                 return;
 
             AppSettings AppSettings = new AppSettings();
-            Debug.WriteLine("Username:" + AppSettings.UsernameSetting);
             if (AppSettings.UsernameSetting == "")
             {
                 Debug.WriteLine("Redirecting...");
@@ -105,7 +104,9 @@ namespace Coderwall
             }
             else
             {
-                ViewModel.Username = AppSettings.UsernameSetting;
+                if(App.ViewModel.Username == "")
+                    ViewModel.Username = AppSettings.UsernameSetting;
+                
                 RootFrame.Dispatcher.BeginInvoke(delegate
                 {
                     RootFrame.Navigate(new Uri("/MainPage.xaml", UriKind.Relative));
@@ -118,6 +119,7 @@ namespace Coderwall
         // This code will not execute when the application is reactivated
         private void Application_Launching(object sender, LaunchingEventArgs e)
         {
+
         }
 
         // Code to execute when the application is activated (brought to foreground)
