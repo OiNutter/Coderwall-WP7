@@ -16,18 +16,22 @@
 
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="White">
-        <Grid HorizontalAlignment="Left" Margin="20,10,20,10" VerticalAlignment="Top" Name="Header">
+        
+            
+                <Grid HorizontalAlignment="Left" Margin="20,10,20,10" VerticalAlignment="Top" Name="Header">
             <Image Source="../Images/LogoSml.png" Width="30" Height="30" HorizontalAlignment="Left" VerticalAlignment="Center"/>
             <TextBlock Text="{Binding CurrentUser.Username}" VerticalAlignment="Center" Margin="40,0,0,0" Foreground="#FFC83C32" Style="{StaticResource PhoneTextTitle3Style}"/>
         </Grid>
 
         <!--Pivot control-->
-        <controls:Pivot Foreground="#FFC83C32" FontSize="18" Name="MainPivot" Background="Transparent" Margin="0,30,0,0">
+        <controls:Pivot Foreground="#FFC83C32" FontSize="18" Name="MainPivot" Margin="0,30,0,0">
+
             <controls:Pivot.HeaderTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding}" FontSize="55"/>
                 </DataTemplate>
             </controls:Pivot.HeaderTemplate>
+            
 
             <controls:PivotItem Header="Profile" FontSize="20">
                 <Grid Name="ProfileGrid">
@@ -36,7 +40,7 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="100*"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <Image Name="Avatar" Source="{Binding Avatar}" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Top" Width="300" Height="300" Margin="0" />

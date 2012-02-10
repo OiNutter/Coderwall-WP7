@@ -111,7 +111,7 @@ namespace Coderwall.ViewModels
                     Debug.WriteLine("StatusCode:" + response.StatusCode);
                     Debug.WriteLine("StatusDescription:" + response.StatusDescription);
                     Debug.WriteLine("Response:" + response.ResponseStatus);
-                    if (response.ResponseStatus == ResponseStatus.Error)
+                    if (response.ResponseStatus == ResponseStatus.Error || response.StatusCode == System.Net.HttpStatusCode.NotFound)
                     {
                         if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
                             MessageBox.Show("Sorry, there seems to be a problem finding the requested user. Please check you typed the username correctly and that the user exists");

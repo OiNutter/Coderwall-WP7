@@ -122,7 +122,6 @@ namespace Coderwall
         {
 
             double BoxWidth;
-            Debug.WriteLine(e.Orientation);
             if ((e.Orientation & PageOrientation.Portrait) == (PageOrientation.Portrait))
             {
                 // Set view width to full width of screen
@@ -135,6 +134,8 @@ namespace Coderwall
                 Grid.SetColumn(ProfileDetails, 0);
                 FullName.TextAlignment = TextAlignment.Center;
                 About.TextAlignment = TextAlignment.Center;
+                Avatar.Margin = new Thickness(0, 0, 0, 0);
+                ProfileGrid.ColumnDefinitions[0].Width = new GridLength(1, GridUnitType.Star);
 
                 //Move Stat Boxes
                 Grid.SetRow(Stat3, 1);
@@ -159,6 +160,9 @@ namespace Coderwall
             else
             {
                 // Adjust View Width To Compensate for Application Bar showing
+                if (ApplicationBar == null)
+                    ApplicationBar = new ApplicationBar();
+
                 MainPivot.Width = LayoutRoot.ActualWidth - ApplicationBar.DefaultSize;
                 if ((e.Orientation & PageOrientation.LandscapeLeft) == PageOrientation.LandscapeLeft)
                 {
@@ -174,8 +178,10 @@ namespace Coderwall
                 // Move Profile Stats
                 Grid.SetRow(ProfileDetails, 0);
                 Grid.SetColumn(ProfileDetails, 1);
+                Avatar.Margin = new Thickness(0, 0, 10, 0);
                 FullName.TextAlignment = TextAlignment.Left;
                 About.TextAlignment = TextAlignment.Left;
+                ProfileGrid.ColumnDefinitions[0].Width = new GridLength(1,GridUnitType.Auto);
 
                 // Move Stat Boxes
                 Grid.SetRow(Stat3, 0);
