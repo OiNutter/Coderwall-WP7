@@ -77,40 +77,20 @@ namespace Coderwall.ViewModels
 
             if (!IgnoreCache && (CachedUser.Contains("ValidUntil") && (DateTime)CachedUser["ValidUntil"] > DateTime.Now))
             {
-                Debug.WriteLine("Using Cache");
-                CurrentUser = new User()
-                {
-                    Username = (string)CachedUser["CachedUsername"],
-                    Name = (string)CachedUser["CachedName"],
-                    Title = (string)CachedUser["CachedTitle"],
-                    Company = (string)CachedUser["CachedCompany"],
-                    Location = (string)CachedUser["CachedLocation"],
-                    Specialities = (List<string>)CachedUser["CachedSpecialities"],
-                    Badges = (List<BadgeObject>)CachedUser["CachedBadges"],
-                    Accomplishments = (List<string>)CachedUser["CachedAccomplishments"],
-                    Stats = (List<Statistic>)CachedUser["CachedStats"],
-                    Endorsements = (int)CachedUser["CachedEndorsements"],
-                    Thumbnail = (string)CachedUser["CachedThumbnail"]
-                };
-
-                ProcessUser(CurrentUser,true);
+                LoadUserFromCache(CachedUser);
             }
             else
             {
 
                 RestClient client = new RestClient();
-                client.BaseUrl = "http://coderwall.com";
-
-                Debug.WriteLine("Using Web");
+                client.BaseUrl = "http://coderwall.com"
 
                 RestRequest request = new RestRequest();
                 Random Random = new Random((int)DateTime.Now.Ticks);
                 request.Resource = Username + ".json?full=true&rand=" + Random.Next(1,100000000);
                 client.ExecuteAsync<User>(request, (response) =>
                 {
-                    Debug.WriteLine("StatusCode:" + response.StatusCode);
-                    Debug.WriteLine("StatusDescription:" + response.StatusDescription);
-                    Debug.WriteLine("Response:" + response.ResponseStatus);
+
                     if (response.ResponseStatus == ResponseStatus.Error || response.StatusCode == System.Net.HttpStatusCode.NotFound)
                     {
                         if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
@@ -122,6 +102,10 @@ namespace Coderwall.ViewModels
                         {
                             Microsoft.Phone.Controls.PhoneApplicationFrame Root = (Microsoft.Phone.Controls.PhoneApplicationFrame)Application.Current.RootVisual;
                             Root.GoBack();
+                        }
+                        else
+                        {
+                            LoadUserFromCache(CachedUser);
                         }
                            
 
@@ -146,7 +130,27 @@ namespace Coderwall.ViewModels
 
             }
         }
-        
+
+        private void LoadUserFromCache(IsolatedStorageSettings CachedUser)
+        {
+            CurrentUser = new User()
+            {
+                Username = (string)CachedUser["CachedUsername"],
+                Name = (string)CachedUser["CachedName"],
+                Title = (string)CachedUser["CachedTitle"],
+                Company = (string)CachedUser["CachedCompany"],
+                Location = (string)CachedUser["CachedLocation"],
+                Specialities = (List<string>)CachedUser["CachedSpecialities"],
+                Badges = (List<BadgeObject>)CachedUser["CachedBadges"],
+                Accomplishments = (List<string>)CachedUser["CachedAccomplishments"],
+                Stats = (List<Statistic>)CachedUser["CachedStats"],
+                Endorsements = (int)CachedUser["CachedEndorsements"],
+                Thumbnail = (string)CachedUser["CachedThumbnail"]
+            };
+
+            ProcessUser(CurrentUser, true);
+        }
+
         private void ProcessUser(User ThisUser,bool Cached){
 
             ImageCache ImageCache = new ImageCache();

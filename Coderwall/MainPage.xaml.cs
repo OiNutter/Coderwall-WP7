@@ -47,7 +47,7 @@ namespace Coderwall
             if (App.ViewModel.Username != AppSettings.UsernameSetting)
             {
                 ApplicationBarIconButton MyWallButton = new ApplicationBarIconButton();
-                MyWallButton.IconUri = new Uri("/Icons/appbar.profile.png", UriKind.Relative);
+                MyWallButton.IconUri = new Uri("/Icons/appbar.people.png", UriKind.Relative);
                 MyWallButton.Text = "My Wall";
                 MyWallButton.Click += new EventHandler(MyWallButton_Click);
                 ApplicationBar.Buttons.Add(MyWallButton);
