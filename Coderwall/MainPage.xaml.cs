@@ -136,6 +136,7 @@ namespace Coderwall
                 About.TextAlignment = TextAlignment.Center;
                 Avatar.Margin = new Thickness(0, 0, 0, 0);
                 ProfileGrid.ColumnDefinitions[0].Width = new GridLength(1, GridUnitType.Star);
+                ProfileGrid.ColumnDefinitions[1].Width = new GridLength(0, GridUnitType.Star);
 
                 //Move Stat Boxes
                 Grid.SetRow(Stat3, 1);
@@ -182,6 +183,7 @@ namespace Coderwall
                 FullName.TextAlignment = TextAlignment.Left;
                 About.TextAlignment = TextAlignment.Left;
                 ProfileGrid.ColumnDefinitions[0].Width = new GridLength(1,GridUnitType.Auto);
+                ProfileGrid.ColumnDefinitions[1].Width = new GridLength(1, GridUnitType.Star);
 
                 // Move Stat Boxes
                 Grid.SetRow(Stat3, 0);

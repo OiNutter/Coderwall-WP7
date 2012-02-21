@@ -83,7 +83,7 @@ namespace Coderwall.ViewModels
             {
 
                 RestClient client = new RestClient();
-                client.BaseUrl = "http://coderwall.com"
+                client.BaseUrl = "http://coderwall.com";
 
                 RestRequest request = new RestRequest();
                 Random Random = new Random((int)DateTime.Now.Ticks);
