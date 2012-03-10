@@ -11,10 +11,12 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
+using System.ComponentModel;
 
 using System.Diagnostics;
 
 using Coderwall.Models;
+using Coderwall.ViewModels;
 
 namespace Coderwall
 {
@@ -30,6 +32,152 @@ namespace Coderwall
             // Set the data context of the listbox control to the sample data
             DataContext = App.ViewModel;
             this.Loaded += new RoutedEventHandler(MainPage_Loaded);
+            App.ViewModel.PropertyChanged += new PropertyChangedEventHandler(CurrentUserChanged);
+
+        }
+
+        private void CurrentUserChanged(object sender, PropertyChangedEventArgs Event)
+        {
+            if (Event.PropertyName == "CurrentUser")
+            {
+                for(int i=StatsGrid.Children.Count-1;i>=0;i--){
+                    StatsGrid.Children.RemoveAt(i);
+                }
+
+                int row = 0;
+                int col = 0;
+                Grid StatItem;
+                SolidColorBrush BgBrush;
+                Viewbox NumberBox;
+                Viewbox DescriptionBox;
+                TextBlock NumberText;
+                TextBlock DescriptionText;
+                if (App.ViewModel.CurrentUser.Stats != null)
+                {
+                    for (int j = 0; j < App.ViewModel.CurrentUser.Stats.Count; j++)
+                    {
+                        StatItem = new Grid();
+                        BgBrush = new SolidColorBrush();
+                        BgBrush.Color = Color.FromArgb(255, 200, 60, 50);
+                        StatItem.Background = BgBrush;
+                        StatItem.Margin = new Thickness(7.5);
+
+                        //Add Number
+                        NumberBox = new Viewbox();
+
+                        NumberText = new TextBlock();
+                        NumberText.Text = App.ViewModel.CurrentUser.Stats[j].Number.ToString();
+                        NumberText.TextAlignment = TextAlignment.Center;
+                        NumberText.HorizontalAlignment = HorizontalAlignment.Stretch;
+                        NumberText.TextTrimming = TextTrimming.None;
+                        NumberText.VerticalAlignment = VerticalAlignment.Top;
+                        NumberText.Style = (Style)Application.Current.Resources["PhoneTextBlockBase"];
+                        NumberText.FontSize = (double)Application.Current.Resources["PhoneFontSizeHuge"];
+                        NumberText.FontFamily = (FontFamily)Application.Current.Resources["PhoneFontFamilyLight"];
+                        NumberText.Margin = new Thickness(12, -45, 12, 0);
+
+                        NumberBox.Child = NumberText;
+                        StatItem.Children.Add(NumberBox);
+
+                        //Add Description
+                        DescriptionBox = new Viewbox();
+                        DescriptionBox.StretchDirection = StretchDirection.DownOnly;
+                        DescriptionBox.VerticalAlignment = VerticalAlignment.Bottom;
+                        DescriptionBox.HorizontalAlignment = HorizontalAlignment.Left;
+
+                        DescriptionText = new TextBlock();
+                        DescriptionText.Text = App.ViewModel.CurrentUser.Stats[j].Description;
+                        DescriptionText.TextAlignment = TextAlignment.Left;
+                        DescriptionText.HorizontalAlignment = HorizontalAlignment.Left;
+                        DescriptionText.TextTrimming = TextTrimming.None;
+                        DescriptionText.VerticalAlignment = VerticalAlignment.Bottom;
+                        DescriptionText.Style = (Style)Application.Current.Resources["PhoneTextSubtleStyle"];
+                        DescriptionText.Margin = new Thickness(7.5);
+
+                        DescriptionBox.Child = DescriptionText;
+                        StatItem.Children.Add(DescriptionBox);
+
+                        StatsGrid.Children.Add(StatItem);
+                        Grid.SetColumn(StatItem, col);
+                        Grid.SetRow(StatItem, row);
+                        col = col + 1;
+
+                        //Set up any required row spanning
+                        if (App.ViewModel.CurrentUser.Stats.Count < 3 && j == 0)
+                        {
+                            Grid.SetColumnSpan(StatItem, 2);
+                            col = 2;
+                        }
+
+                        if (col >= 2)
+                        {
+                            col = 0;
+                            row = row + 1;
+                        }
+                    }
+                }
+
+                StatItem = new Grid();
+                BgBrush = new SolidColorBrush();
+                BgBrush.Color = Color.FromArgb(255, 200, 60, 50);
+                StatItem.Background = BgBrush;
+                StatItem.Margin = new Thickness(7.5);
+
+                //Add Number
+                NumberBox = new Viewbox();
+
+                NumberText = new TextBlock();
+                NumberText.Text = App.ViewModel.CurrentUser.Endorsements.ToString();
+                NumberText.TextAlignment = TextAlignment.Center;
+                NumberText.HorizontalAlignment = HorizontalAlignment.Stretch;
+                NumberText.TextTrimming = TextTrimming.None;
+                NumberText.VerticalAlignment = VerticalAlignment.Top;
+                NumberText.Style = (Style)Application.Current.Resources["PhoneTextBlockBase"];
+                NumberText.FontSize = (double)Application.Current.Resources["PhoneFontSizeHuge"];
+                NumberText.FontFamily = (FontFamily)Application.Current.Resources["PhoneFontFamilyLight"];
+                NumberText.Margin = new Thickness(12, -45, 12, 0);
+
+                NumberBox.Child = NumberText;
+                StatItem.Children.Add(NumberBox);
+
+                //Add Description
+                DescriptionBox = new Viewbox();
+                DescriptionBox.StretchDirection = StretchDirection.DownOnly;
+                DescriptionBox.VerticalAlignment = VerticalAlignment.Bottom;
+                DescriptionBox.HorizontalAlignment = HorizontalAlignment.Left;
+
+                DescriptionText = new TextBlock();
+                DescriptionText.Text = "Endorsements";
+                DescriptionText.TextAlignment = TextAlignment.Left;
+                DescriptionText.HorizontalAlignment = HorizontalAlignment.Left;
+                DescriptionText.TextTrimming = TextTrimming.None;
+                DescriptionText.VerticalAlignment = VerticalAlignment.Bottom;
+                DescriptionText.Style = (Style)Application.Current.Resources["PhoneTextSubtleStyle"];
+                DescriptionText.Margin = new Thickness(7.5);
+
+                DescriptionBox.Child = DescriptionText;
+                StatItem.Children.Add(DescriptionBox);
+
+                StatsGrid.Children.Add(StatItem);
+                Grid.SetColumn(StatItem,col);
+                Grid.SetRow(StatItem, row);
+
+                if (App.ViewModel.CurrentUser.Stats == null || App.ViewModel.CurrentUser.Stats.Count < 2)
+                    Grid.SetColumnSpan(StatItem, 2);
+
+                if (App.ViewModel.CurrentUser.Stats == null)
+                {
+                    StatsGrid.RowDefinitions[0].Height = new GridLength(1, GridUnitType.Star);
+                    StatsGrid.RowDefinitions[1].Height = new GridLength(0, GridUnitType.Star);
+                    StatsGrid.Height = 220;
+                }
+                else
+                {
+                    StatsGrid.RowDefinitions[0].Height = new GridLength(0.5, GridUnitType.Star);
+                    StatsGrid.RowDefinitions[1].Height = new GridLength(0.5, GridUnitType.Star);
+                    StatsGrid.Height = 440;
+                }
+            }
         }
 
         private void CreateApplicationBar()
@@ -138,11 +286,29 @@ namespace Coderwall
                 ProfileGrid.ColumnDefinitions[0].Width = new GridLength(1, GridUnitType.Star);
                 ProfileGrid.ColumnDefinitions[1].Width = new GridLength(0, GridUnitType.Star);
 
-                //Move Stat Boxes
-                Grid.SetRow(Stat3, 1);
-                Grid.SetColumn(Stat3, 0);
-                Grid.SetRow(Stat4, 1);
-                Grid.SetColumn(Stat4, 1);
+                // Move Stat Boxes
+                int col = 0;
+                int row = 0;
+                for (int i = 0; i < StatsGrid.Children.Count; i++)
+                {
+                    Grid.SetRow((FrameworkElement)StatsGrid.Children.ElementAt(i), row);
+                    Grid.SetColumn((FrameworkElement)StatsGrid.Children.ElementAt(i), col);
+                    Grid.SetColumnSpan((FrameworkElement)StatsGrid.Children.ElementAt(i), 1);
+                    col = col + 1;
+
+                    if ((StatsGrid.Children.Count < 4 && i == 0) || (StatsGrid.Children.Count < 3 && i == 1))
+                    {
+                        Grid.SetColumnSpan((FrameworkElement)StatsGrid.Children.ElementAt(i), 2);
+                        col = 2;
+                    }
+
+                    if (col >= 2)
+                    {
+                        col = 0;
+                        row = row + 1;
+                    }
+
+                }
 
                 //Set Dimensions on Stat Boxes
                 BoxWidth = (MainPivot.Width) / 2;
@@ -151,8 +317,16 @@ namespace Coderwall
                 StatsGrid.ColumnDefinitions[2].Width = new GridLength(0);
                 StatsGrid.ColumnDefinitions[3].Width = new GridLength(0);
 
-                StatsGrid.Height = 440;
-                StatsGrid.RowDefinitions[1].Height = new GridLength(0.5,GridUnitType.Star);
+                if (StatsGrid.Children.Count > 1)
+                {
+                    StatsGrid.Height = 440;
+                    StatsGrid.RowDefinitions[1].Height = new GridLength(0.5, GridUnitType.Star);
+                }
+                else
+                {
+                    StatsGrid.Height = 220;
+                    StatsGrid.RowDefinitions[1].Height = new GridLength(0, GridUnitType.Star);
+                }
 
             }
 
@@ -186,17 +360,29 @@ namespace Coderwall
                 ProfileGrid.ColumnDefinitions[1].Width = new GridLength(1, GridUnitType.Star);
 
                 // Move Stat Boxes
-                Grid.SetRow(Stat3, 0);
-                Grid.SetColumn(Stat3, 2);
-                Grid.SetRow(Stat4, 0);
-                Grid.SetColumn(Stat4, 3);
+                int col = 0;
+                for (int i = 0; i < StatsGrid.Children.Count; i++)
+                {
+                    Grid.SetRow((FrameworkElement)StatsGrid.Children.ElementAt(i),0);
+                    Grid.SetColumn((FrameworkElement)StatsGrid.Children.ElementAt(i), col);
+                    Grid.SetColumnSpan((FrameworkElement)StatsGrid.Children.ElementAt(i), 1);
+                    col = col + 1;
 
+                }
+                
                 //Set Dimensions on Stat Boxes
-                StatsGrid.ColumnDefinitions[0].Width = new GridLength(0.25,GridUnitType.Star);
-                StatsGrid.ColumnDefinitions[1].Width = new GridLength(0.25, GridUnitType.Star);
-                StatsGrid.ColumnDefinitions[2].Width = new GridLength(0.25,GridUnitType.Star);
-                StatsGrid.ColumnDefinitions[3].Width = new GridLength(0.25,GridUnitType.Star);
+                for (int j = 0; j < StatsGrid.ColumnDefinitions.Count; j++)
+                {
+                    double ColWidth;
+                    
+                    if (j < StatsGrid.Children.Count)
+                        ColWidth = (double)(1.0 / StatsGrid.Children.Count);
+                    else
+                        ColWidth = 0;
 
+                    StatsGrid.ColumnDefinitions[j].Width = new GridLength(ColWidth, GridUnitType.Star);
+                }
+               
                 StatsGrid.Height = 220;
                 StatsGrid.RowDefinitions[1].Height = new GridLength(0);
                 

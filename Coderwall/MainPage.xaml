@@ -99,38 +99,6 @@
                                 <ColumnDefinition Width="0"/>
                                 <ColumnDefinition Width="0"/>
                             </Grid.ColumnDefinitions>
-                            <Grid Grid.Column="0" Grid.Row="0" Margin="7.5,7.5,7.5,7.5" Background="#FFC83C32" DataContext="{Binding CurrentUser.Stats[0]}" Name="Stat1">
-                                <Viewbox>
-                                    <TextBlock Name="Stat1Value" Text="{Binding Number}" TextAlignment="Center" HorizontalAlignment="Stretch" TextTrimming="None" VerticalAlignment="Top" Style="{StaticResource PhoneTextBlockBase}" FontSize="{StaticResource PhoneFontSizeHuge}" FontFamily="{StaticResource PhoneFontFamilyLight}" Margin="12,-45,12,0" />
-                                </Viewbox>
-                                <Viewbox StretchDirection="DownOnly" VerticalAlignment="Bottom" HorizontalAlignment="Left">
-                                    <TextBlock Text="{Binding Description}" Style="{StaticResource PhoneTextSubtleStyle}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="7.5,7.5,7.5,7.5"/>
-                                </Viewbox>
-                            </Grid>
-                            <Grid Grid.Column="1" Grid.Row="0" Margin="7.5,7.5,7.5,7.5" Background="#FFC83C32" DataContext="{Binding CurrentUser.Stats[1]}" Name="Stat2">
-                                <Viewbox>
-                                    <TextBlock Name="Stat2Value" Text="{Binding Number}" TextAlignment="Center" HorizontalAlignment="Stretch" TextTrimming="None" VerticalAlignment="Top" Style="{StaticResource PhoneTextBlockBase}" FontSize="{StaticResource PhoneFontSizeHuge}" FontFamily="{StaticResource PhoneFontFamilyLight}" Margin="12,-45,12,0" />
-                                </Viewbox>
-                                <Viewbox StretchDirection="DownOnly" VerticalAlignment="Bottom" HorizontalAlignment="Left">
-                                    <TextBlock Text="{Binding Description}" Style="{StaticResource PhoneTextSubtleStyle}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="7.5,7.5,7.5,7.5"/>
-                                </Viewbox>
-                            </Grid>
-                            <Grid Grid.Column="0" Grid.Row="1" Margin="7.5,7.5,7.5,7.5" Background="#FFC83C32" DataContext="{Binding CurrentUser.Stats[2]}" Name="Stat3">
-                                <Viewbox>
-                                    <TextBlock Name="Stat3Value" Text="{Binding Number}"  TextAlignment="Center" HorizontalAlignment="Stretch" VerticalAlignment="Top" Style="{StaticResource PhoneTextHugeStyle}" Margin="12,-45,12,0" />
-                                </Viewbox>
-                                <Viewbox StretchDirection="DownOnly" VerticalAlignment="Bottom" HorizontalAlignment="Left">
-                                    <TextBlock Text="{Binding Description}" Style="{StaticResource PhoneTextSubtleStyle}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="7.5,7.5,7.5,7.5"/>
-                                </Viewbox>
-                            </Grid>
-                            <Grid Grid.Column="1" Grid.Row="1" Margin="7.5,7.5,7.5,7.5" Background="#FFC83C32" Name="Stat4">
-                                <Viewbox>
-                                    <TextBlock Name="EndorsementsValue" Text="{Binding CurrentUser.Endorsements}" TextAlignment="Center" HorizontalAlignment="Stretch" VerticalAlignment="Top" Style="{StaticResource PhoneTextHugeStyle}" Margin="12,-45,12,0" />
-                                </Viewbox>
-                                <Viewbox StretchDirection="DownOnly" VerticalAlignment="Bottom" HorizontalAlignment="Left">
-                                    <TextBlock Text="Endorsements" Style="{StaticResource PhoneTextSubtleStyle}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="7.5,7.5,7.5,7.5"/>
-                                </Viewbox>
-                            </Grid>
                         </Grid>
                         <Grid Margin="7.5,15,7.5,15" Background="#FFC83C32" HorizontalAlignment="Stretch" Name="SpecialitiesBox">
                             <StackPanel >

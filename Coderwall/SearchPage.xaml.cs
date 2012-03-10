@@ -44,6 +44,7 @@ namespace Coderwall
             CancelButton.Text = "Cancel";
             CancelButton.Click += new EventHandler(CancelButton_Click);
             ApplicationBar.Buttons.Add(CancelButton);
+
         }
 
         private void SearchButton_Click(object sender, EventArgs e)

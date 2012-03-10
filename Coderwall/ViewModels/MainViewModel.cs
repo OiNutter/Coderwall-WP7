@@ -182,27 +182,27 @@ namespace Coderwall.ViewModels
             }
             
 
-            foreach (string accomplishment in CurrentUser.Accomplishments)
+            foreach (string accomplishment in ThisUser.Accomplishments)
                 Accomplishments.Add(accomplishment);
 
                 if (Accomplishments.Count == 0)
                     Accomplishments.Add("You Have Not Entered Any Accomplishments");
 
-                Summary = CurrentUser.Title;
+                Summary = ThisUser.Title;
 
-                if (CurrentUser.Title != null && CurrentUser.Company != null)
+                if (ThisUser.Title != null && ThisUser.Company != null)
                     Summary += " at ";
                     
-                Summary += CurrentUser.Company;
+                Summary += ThisUser.Company;
 
                 if (Summary != "")
                     Summary += "\n";
 
-                Summary += CurrentUser.Location;
+                Summary += ThisUser.Location;
                 
-                Specialities = string.Join(", ", CurrentUser.Specialities);
+                Specialities = string.Join(", ", ThisUser.Specialities);
 
-                Uri AvatarUri = new Uri(CurrentUser.Thumbnail + "?s=200", UriKind.Absolute);
+                Uri AvatarUri = new Uri(ThisUser.Thumbnail + "?s=200", UriKind.Absolute);
                 if (Cached && ImageCache.ImageExists(AvatarUri))
                 {
                     Avatar = ImageCache.LoadImage(AvatarUri);
@@ -215,7 +215,7 @@ namespace Coderwall.ViewModels
                         AvatarBitmap.ImageOpened += new EventHandler<RoutedEventArgs>(ImageCache.StoreImage);
 
                 }
-                
+
                 PropertyChanged(this, new PropertyChangedEventArgs("CurrentUser"));
                 PropertyChanged(this, new PropertyChangedEventArgs("Summary"));
                 PropertyChanged(this, new PropertyChangedEventArgs("Specialities"));
