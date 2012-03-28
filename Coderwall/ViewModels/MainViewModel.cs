@@ -70,24 +70,16 @@ namespace Coderwall.ViewModels
         /// </summary>
         public void LoadData()
         {
-            UserCache CurrentCached = new UserCache();
-            IsolatedStorageSettings CachedUser = CurrentCached.CachedSettings;
             Badges = new ObservableCollection<BadgeViewModel>();
             Accomplishments = new ObservableCollection<string>();
 
-            if (!IgnoreCache && (CachedUser.Contains("ValidUntil") && (DateTime)CachedUser["ValidUntil"] > DateTime.Now))
-            {
-                LoadUserFromCache(CachedUser);
-            }
-            else
-            {
-
+           
                 RestClient client = new RestClient();
                 client.BaseUrl = "http://coderwall.com";
 
                 RestRequest request = new RestRequest();
-                Random Random = new Random((int)DateTime.Now.Ticks);
-                request.Resource = Username + ".json?full=true&rand=" + Random.Next(1,100000000);
+                //Random Random = new Random((int)DateTime.Now.Ticks);
+                request.Resource = Username + ".json?full=true";//&rand=" + Random.Next(1,100000000);
                 client.ExecuteAsync<User>(request, (response) =>
                 {
 
@@ -102,12 +94,7 @@ namespace Coderwall.ViewModels
                         {
                             Microsoft.Phone.Controls.PhoneApplicationFrame Root = (Microsoft.Phone.Controls.PhoneApplicationFrame)Application.Current.RootVisual;
                             Root.GoBack();
-                        }
-                        else
-                        {
-                            LoadUserFromCache(CachedUser);
-                        }
-                           
+                        }  
 
                     }
                     else if (response.ResponseStatus == ResponseStatus.TimedOut)
@@ -118,37 +105,12 @@ namespace Coderwall.ViewModels
                     {
                         CurrentUser = response.Data;
                         ProcessUser(CurrentUser, false);
-                        if (ShouldCache)
-                        {
-                            CurrentCached.StoreUser(CurrentUser);
-                            IgnoreCache = false;
-                        }
+                       
                         this.IsDataLoaded = true;
                     }
 
                 });
 
-            }
-        }
-
-        private void LoadUserFromCache(IsolatedStorageSettings CachedUser)
-        {
-            CurrentUser = new User()
-            {
-                Username = (string)CachedUser["CachedUsername"],
-                Name = (string)CachedUser["CachedName"],
-                Title = (string)CachedUser["CachedTitle"],
-                Company = (string)CachedUser["CachedCompany"],
-                Location = (string)CachedUser["CachedLocation"],
-                Specialities = (List<string>)CachedUser["CachedSpecialities"],
-                Badges = (List<BadgeObject>)CachedUser["CachedBadges"],
-                Accomplishments = (List<string>)CachedUser["CachedAccomplishments"],
-                Stats = (List<Statistic>)CachedUser["CachedStats"],
-                Endorsements = (int)CachedUser["CachedEndorsements"],
-                Thumbnail = (string)CachedUser["CachedThumbnail"]
-            };
-
-            ProcessUser(CurrentUser, true);
         }
 
         private void ProcessUser(User ThisUser,bool Cached){
@@ -159,17 +121,9 @@ namespace Coderwall.ViewModels
             {
                 Uri BadgeUri = new Uri(badge.Badge, UriKind.Absolute);
                 ImageSource BadgeSource;
-                if (Cached && ImageCache.ImageExists(BadgeUri))
-                {
-                    BadgeSource = ImageCache.LoadImage(BadgeUri);
-                }
-                else
-                {
+                
                     BitmapImage BadgeBitmap = new BitmapImage(BadgeUri);
                     BadgeSource = BadgeBitmap;
-                    if (ShouldCache)
-                        BadgeBitmap.ImageOpened += new EventHandler<RoutedEventArgs>(ImageCache.StoreImage);
-                }
 
                 Badges.Add(
                     new BadgeViewModel()
