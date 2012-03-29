@@ -70,20 +70,27 @@ namespace Coderwall.ViewModels
         /// </summary>
         public void LoadData()
         {
+            BackgroundWorker BackgroundThread = new BackgroundWorker();
+            BackgroundThread.DoWork += new DoWorkEventHandler(LoadUser);
+            BackgroundThread.RunWorkerAsync();
+        }
+
+        private void LoadUser(object sender, DoWorkEventArgs e)
+        {
             Badges = new ObservableCollection<BadgeViewModel>();
             Accomplishments = new ObservableCollection<string>();
+            RestClient client = new RestClient();
+            client.BaseUrl = "http://coderwall.com";
 
-           
-                RestClient client = new RestClient();
-                client.BaseUrl = "http://coderwall.com";
-
-                RestRequest request = new RestRequest();
-                //Random Random = new Random((int)DateTime.Now.Ticks);
-                request.Resource = Username + ".json?full=true";//&rand=" + Random.Next(1,100000000);
-                client.ExecuteAsync<User>(request, (response) =>
+            RestRequest request = new RestRequest();
+            request.Resource = Username + ".json?full=true";
+            client.ExecuteAsync<User>(request, (response) =>
+            {
+                Debug.WriteLine(response.ResponseStatus);
+                Debug.WriteLine(response.StatusCode);
+                if (response.ResponseStatus == ResponseStatus.Error || response.StatusCode == System.Net.HttpStatusCode.NotFound)
                 {
-
-                    if (response.ResponseStatus == ResponseStatus.Error || response.StatusCode == System.Net.HttpStatusCode.NotFound)
+                    Deployment.Current.Dispatcher.BeginInvoke(() =>
                     {
                         if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
                             MessageBox.Show("Sorry, there seems to be a problem finding the requested user. Please check you typed the username correctly and that the user exists");
@@ -94,22 +101,28 @@ namespace Coderwall.ViewModels
                         {
                             Microsoft.Phone.Controls.PhoneApplicationFrame Root = (Microsoft.Phone.Controls.PhoneApplicationFrame)Application.Current.RootVisual;
                             Root.GoBack();
-                        }  
-
-                    }
-                    else if (response.ResponseStatus == ResponseStatus.TimedOut)
+                        }
+                    });
+                }
+                else if (response.ResponseStatus == ResponseStatus.TimedOut)
+                {
+                    Deployment.Current.Dispatcher.BeginInvoke(() =>
                     {
                         MessageBox.Show("Sorry, we couldn't connect to the server. Please check your are connected to the internet");
-                    }
-                    else
+                    });
+                }
+                else
+                {
+                    Debug.WriteLine(response.Content);
+                    CurrentUser = response.Data;
+                    Deployment.Current.Dispatcher.BeginInvoke(()=>
                     {
-                        CurrentUser = response.Data;
                         ProcessUser(CurrentUser, false);
+                    });
                        
-                        this.IsDataLoaded = true;
-                    }
-
-                });
+                    this.IsDataLoaded = true;
+                }
+            });
 
         }
 
@@ -165,8 +178,8 @@ namespace Coderwall.ViewModels
                 {
                     BitmapImage AvatarBitmap = new BitmapImage(AvatarUri);
                     Avatar = AvatarBitmap;
-                    if (ShouldCache)
-                        AvatarBitmap.ImageOpened += new EventHandler<RoutedEventArgs>(ImageCache.StoreImage);
+                    //if (ShouldCache)
+                     //   AvatarBitmap.ImageOpened += new EventHandler<RoutedEventArgs>(ImageCache.StoreImage);
 
                 }
 

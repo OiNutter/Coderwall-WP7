@@ -109,6 +109,7 @@
   <ItemGroup>
     <None Include="Coderwall_2012_03_28_23_31_40.sap" />
     <None Include="Coderwall_2012_03_28_23_34_40.sap" />
+    <None Include="Coderwall_2012_03_29_23_34_51.sap" />
     <None Include="packages.config" />
     <None Include="Properties\AppManifest.xml" />
     <None Include="Properties\WMAppManifest.xml" />

@@ -11,6 +11,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
+using System.ComponentModel;
 
 using Coderwall.ViewModels;
 
@@ -52,10 +53,19 @@ namespace Coderwall
             ApplicationBar.Buttons.Add(CancelButton);
         }
 
+        private void SaveSettings(object sender, DoWorkEventArgs e)
+        {
+            SettingsModel.AppSettings.UsernameSetting = App.ViewModel.Username;
+        }
+
         private void OKButton_Click(object sender, EventArgs e)
         {
-            SettingsModel.AppSettings.UsernameSetting = TextBoxUserName.Text;
             App.ViewModel.Username = TextBoxUserName.Text;
+
+            BackgroundWorker BackgroundThread = new BackgroundWorker();
+            BackgroundThread.DoWork += new DoWorkEventHandler(SaveSettings);
+            BackgroundThread.RunWorkerAsync();
+            
             App.ViewModel.ShouldCache = true;
             App.ViewModel.IgnoreCache = true;
             App.ViewModel.GoBack = true;
