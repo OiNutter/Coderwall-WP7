@@ -58,7 +58,7 @@ namespace Coderwall
                     {
                         StatItem = new Grid();
                         BgBrush = new SolidColorBrush();
-                        BgBrush.Color = Color.FromArgb(255, 200, 60, 50);
+                        BgBrush.Color = Color.FromArgb(255,138,203,239);
                         StatItem.Background = BgBrush;
                         StatItem.Margin = new Thickness(7.5);
 
@@ -119,7 +119,7 @@ namespace Coderwall
 
                 StatItem = new Grid();
                 BgBrush = new SolidColorBrush();
-                BgBrush.Color = Color.FromArgb(255, 200, 60, 50);
+                BgBrush.Color = Color.FromArgb(255,138,203,239);
                 StatItem.Background = BgBrush;
                 StatItem.Margin = new Thickness(7.5);
 
@@ -185,7 +185,7 @@ namespace Coderwall
             ApplicationBar = new ApplicationBar();
             ApplicationBar.Mode = ApplicationBarMode.Minimized;
             ApplicationBar.Opacity = 1.0;
-            ApplicationBar.BackgroundColor = Color.FromArgb(255, 200, 60, 50);
+            ApplicationBar.BackgroundColor = Color.FromArgb(255,138,203,239);
             ApplicationBar.ForegroundColor = Colors.White;
             ApplicationBar.IsVisible = true;
             ApplicationBar.IsMenuEnabled = true;

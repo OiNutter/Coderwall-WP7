@@ -25,15 +25,15 @@
         <StackPanel x:Name="TitlePanel" Grid.Row="0">
             <Grid HorizontalAlignment="Left" Margin="20,10,20,10" VerticalAlignment="Top">
                 <Image Source="../Images/LogoSml.png" Width="30" Height="30" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                <TextBlock Text="Coderwall" VerticalAlignment="Center" Margin="40,0,0,0" Foreground="#FFC83C32" Style="{StaticResource PhoneTextTitle3Style}"/>
+                <TextBlock Text="Coderwall" VerticalAlignment="Center" Margin="40,0,0,0" Foreground="#90D8FF" Style="{StaticResource PhoneTextTitle3Style}"/>
             </Grid>
-            <TextBlock x:Name="PageTitle" Text="Search" FontSize="55" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"  Foreground="#FFC83C32"/>
+            <TextBlock x:Name="PageTitle" Text="Search" FontSize="55" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"  Foreground="#90D8FF"/>
         </StackPanel>
 
         <!--ContentPanel - place additional content here-->
         <StackPanel x:Name="ContentPanel" Grid.Row="1" Margin="12,20,12,0">
-            <TextBlock Foreground="#FFAB9C73" HorizontalAlignment="Stretch" VerticalAlignment="Top" Text="To view another user's profile enter their username here" Margin="0,0,0,10" />
-            <Grid Background="#FFC83C32" HorizontalAlignment="Stretch">
+            <TextBlock Foreground="#FFAB9C73" HorizontalAlignment="Stretch" VerticalAlignment="Top" Text="To view another user's profile enter their username" Margin="0,0,0,10" />
+            <Grid Background="#90D8FF" HorizontalAlignment="Stretch">
                 <TextBox Name="SearchBox" BorderThickness="0" GotFocus="SearchBox_GotFocus" Background="White" Foreground="Black" Text="" Margin="5"/>
             </Grid>
         </StackPanel>

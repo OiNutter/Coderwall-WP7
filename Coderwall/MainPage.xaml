@@ -20,11 +20,11 @@
             
                 <Grid HorizontalAlignment="Left" Margin="20,10,20,10" VerticalAlignment="Top" Name="Header">
             <Image Source="../Images/LogoSml.png" Width="30" Height="30" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-            <TextBlock Text="{Binding CurrentUser.Username}" VerticalAlignment="Center" Margin="40,0,0,0" Foreground="#FFC83C32" Style="{StaticResource PhoneTextTitle3Style}"/>
+            <TextBlock Text="{Binding CurrentUser.Username}" VerticalAlignment="Center" Margin="40,0,0,0" Foreground="#90D8FF" Style="{StaticResource PhoneTextTitle3Style}"/>
         </Grid>
 
         <!--Pivot control-->
-        <controls:Pivot Foreground="#FFC83C32" FontSize="18" Name="MainPivot" Margin="0,30,0,0">
+        <controls:Pivot Foreground="#90D8FF" FontSize="18" Name="MainPivot" Margin="0,30,0,0">
 
             <controls:Pivot.HeaderTemplate>
                 <DataTemplate>
@@ -45,7 +45,7 @@
                     </Grid.ColumnDefinitions>
                     <Image Name="Avatar" Source="{Binding Avatar}" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Top" Width="300" Height="300" Margin="0" />
                     <StackPanel Name="ProfileDetails" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="0,0,0,0" Grid.Row="1" Grid.Column="0">
-                        <TextBlock Name="FullName" Foreground="#FFC83C32" TextAlignment="Center" HorizontalAlignment="Stretch" Margin="0,0,0,0" Text="{Binding CurrentUser.Name}" Style="{StaticResource PhoneTextExtraLargeStyle}" VerticalAlignment="Top"/>
+                        <TextBlock Name="FullName" Foreground="#90D8FF" TextAlignment="Center" HorizontalAlignment="Stretch" Margin="0,0,0,0" Text="{Binding CurrentUser.Name}" Style="{StaticResource PhoneTextExtraLargeStyle}" VerticalAlignment="Top"/>
                         <TextBlock Name="About" Text="{Binding Summary}" TextWrapping="Wrap" TextAlignment="Center" HorizontalAlignment="Stretch" Margin="0,0,0,0" VerticalAlignment="Top"  Style="{StaticResource PhoneTextLargeStyle}" Foreground="#FFAB9C73"/>
                     </StackPanel>
                 </Grid>
@@ -60,7 +60,7 @@
                             <Grid>
                                 <Image Source="{Binding Badge}"  Width="150" Height="150" HorizontalAlignment="Left"/>
                                 <StackPanel Margin="160,10,0,17" Height="150">
-                                    <TextBlock Foreground="#FFC83C32" Text="{Binding BadgeName}" TextAlignment="Left" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}" HorizontalAlignment="Stretch" VerticalAlignment="Top"/>
+                                    <TextBlock Foreground="#90D8FF" Text="{Binding BadgeName}" TextAlignment="Left" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}" HorizontalAlignment="Stretch" VerticalAlignment="Top"/>
                                     <TextBlock Foreground="#FFAB9C73" Text="{Binding BadgeDescription}" TextWrapping="Wrap" Margin="15,0,12,0" Style="{StaticResource PhoneTextSubtleStyle}" FontSize="17" HorizontalAlignment="Stretch"/>
                                 </StackPanel>
                             </Grid>
@@ -76,7 +76,7 @@
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <Grid Margin="0,0,0,20" HorizontalAlignment="Stretch" ShowGridLines="False">
-                                <Ellipse Width="20" Height="20" Fill="#FFC83C32" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,5,0,0"/>
+                                <Ellipse Width="20" Height="20" Fill="#90D8FF" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,5,0,0"/>
                                 <TextBlock Foreground="#FFAB9C73" Text="{Binding}" Margin="40,0,0,0" TextAlignment="Left" TextWrapping="Wrap" Style="{StaticResource PhoneTextSubtleStyle}" HorizontalAlignment="Stretch" VerticalAlignment="Top"/>
                             </Grid>
                         </DataTemplate>
@@ -100,7 +100,7 @@
                                 <ColumnDefinition Width="0"/>
                             </Grid.ColumnDefinitions>
                         </Grid>
-                        <Grid Margin="7.5,15,7.5,15" Background="#FFC83C32" HorizontalAlignment="Stretch" Name="SpecialitiesBox">
+                        <Grid Margin="7.5,15,7.5,15" Background="#90D8FF" HorizontalAlignment="Stretch" Name="SpecialitiesBox">
                             <StackPanel >
                                 <TextBlock Text="{Binding Specialities}" Style="{StaticResource PhoneTextNormalStyle}" HorizontalAlignment="Stretch" TextWrapping="Wrap" VerticalAlignment="Top" Margin="7.5,7.5,7.5,7.5"/>
                                 <TextBlock Text="Specialities" Style="{StaticResource PhoneTextSubtleStyle}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="7.5,7.5,7.5,7.5"/>

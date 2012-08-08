@@ -128,8 +128,6 @@ namespace Coderwall.ViewModels
 
         private void ProcessUser(User ThisUser,bool Cached){
 
-            ImageCache ImageCache = new ImageCache();
-
             foreach (BadgeObject badge in ThisUser.Badges)
             {
                 Uri BadgeUri = new Uri(badge.Badge, UriKind.Absolute);
@@ -170,19 +168,9 @@ namespace Coderwall.ViewModels
                 Specialities = string.Join(", ", ThisUser.Specialities);
 
                 Uri AvatarUri = new Uri(ThisUser.Thumbnail + "?s=200", UriKind.Absolute);
-                if (Cached && ImageCache.ImageExists(AvatarUri))
-                {
-                    Avatar = ImageCache.LoadImage(AvatarUri);
-                }
-                else
-                {
-                    BitmapImage AvatarBitmap = new BitmapImage(AvatarUri);
-                    Avatar = AvatarBitmap;
-                    //if (ShouldCache)
-                     //   AvatarBitmap.ImageOpened += new EventHandler<RoutedEventArgs>(ImageCache.StoreImage);
-
-                }
-
+                BitmapImage AvatarBitmap = new BitmapImage(AvatarUri);
+                Avatar = AvatarBitmap;
+  
                 PropertyChanged(this, new PropertyChangedEventArgs("CurrentUser"));
                 PropertyChanged(this, new PropertyChangedEventArgs("Summary"));
                 PropertyChanged(this, new PropertyChangedEventArgs("Specialities"));

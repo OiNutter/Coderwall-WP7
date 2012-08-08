@@ -34,7 +34,7 @@ namespace Coderwall
             ApplicationBar = new ApplicationBar();
             ApplicationBar.Mode = ApplicationBarMode.Default;
             ApplicationBar.Opacity = 1.0;
-            ApplicationBar.BackgroundColor = Color.FromArgb(255, 200, 60, 50);
+            ApplicationBar.BackgroundColor = Color.FromArgb(255,138,203,239);
             ApplicationBar.ForegroundColor = Colors.White;
             ApplicationBar.IsVisible = true;
             ApplicationBar.IsMenuEnabled = true;
