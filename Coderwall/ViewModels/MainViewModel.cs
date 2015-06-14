@@ -146,9 +146,9 @@ namespace Coderwall.ViewModels
                );
             }
             
-
-            foreach (string accomplishment in ThisUser.Accomplishments)
-                Accomplishments.Add(accomplishment);
+            if (ThisUser.Accomplishments != null)
+                foreach (string accomplishment in ThisUser.Accomplishments)
+                    Accomplishments.Add(accomplishment);
 
                 if (Accomplishments.Count == 0)
                     Accomplishments.Add("You Have Not Entered Any Accomplishments");
